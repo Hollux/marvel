@@ -3,6 +3,11 @@
 parameters:
     locale: 'en'
 
+    marvelPublicKey: '2df1ea6a2d02d209d21f7aa6b9f4bef7'
+    marvelPrivateKey: '5eb41d557f22e4b67d562126e9a041b053ca7a60'
+
+
+
 services:
     # default configuration for services in *this* file
     _defaults:
