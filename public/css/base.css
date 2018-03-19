@@ -1,0 +1,74 @@
+/* ====================
+//       RESET       //
+==================== */
+/* Internet Explorer 10 doesn't differentiate device width from viewport width,
+and thus doesn't properly apply the media queries in Bootstrap's CSS.
+Normally you'd just add a quick snippet of CSS to fix this:*/
+@-webkit-viewport {
+    width: device-width; }
+@-moz-viewport {
+    width: device-width; }
+@-ms-viewport {
+    width: device-width; }
+@-o-viewport {
+    width: device-width; }
+@viewport {
+    width: device-width; }
+@media print {
+    .bg-danger {
+        background-color: #f2dede !important; } }
+/* Special smartphone */
+@media (max-width: 767px) {
+    .container {
+        width: auto;
+    }
+    h3, .h3 {
+        font-size: 18px;
+        margin-top: 10px;
+    }
+}
+/* Prevent scroll on narrow devices */
+/* html,body { overflow-x: hidden;} */
+blockquote {
+    font-size: 15px;
+    margin: 10px;
+    padding: 5px !important;
+}
+a {
+    outline: 0 !important;
+}
+/* ====================
+//      / RESET      //
+==================== */
+
+/* ====================
+//       BASE        //
+==================== */
+html {
+    height: 100%;
+}
+body {
+    margin: 0;
+    height: 100%;
+    font-family: 'Open Sans', sans-serif;
+}
+img {
+    max-width: 100%;
+}
+a:hover, a:focus, a:active {
+    text-decoration:none;
+}
+.m0auto {
+    display: block;
+    margin: 0 auto;
+}
+.flex {
+    display: flex;
+}
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
+/* ====================
+//	     / BASE      //
+==================== */
