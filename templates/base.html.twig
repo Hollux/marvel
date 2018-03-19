@@ -1,43 +1,53 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <!--    Title  -->
-        <title>{% block fullTitle %}{% block title %}Welcome!{% endblock %} - leSite{% endblock %}</title>
-        <!--    Meta description -->
-        <meta name="description" value="{% block metaDescription %}Site du développeur hollux{% endblock %}">
-        <!--   Block Style -->
-        {% block stylesheets %}
-            <!--    BOOTSTRAP -->
-            <link href="{{ asset('library/bootstrap3/css/bootstrap.min.css') }}" media="print,screen" rel="stylesheet"/>
-            <!--    Jquery Confirm CSS -->
-            <link  href="{{ asset('library/jqueryConfirm/css/jquery-confirm.css') }}" media="print,screen" rel="stylesheet"/>
-            <!-- CSS -->
-            <link  href="{{ asset('css/base.css') }}" media="print,screen" rel="stylesheet"/>
-        {% endblock %}
-        <!--   Block JS -->
-        {% block javascripts %}
+<head>
+    <meta charset="UTF-8">
+    <!--    Title  -->
+    <title>{% block fullTitle %}{% block title %}Welcome!{% endblock %} - leSite{% endblock %}</title>
+    <!--    Meta description -->
+    <meta name="description" value="{% block metaDescription %}Site du développeur hollux{% endblock %}">
+    <!--   Block Style -->
+    {% block stylesheets %}
+        <!--    BOOTSTRAP -->
+        <link href="{{ asset('library/bootstrap3/css/bootstrap.min.css') }}" media="print,screen" rel="stylesheet"/>
+        <!--    Jquery Confirm CSS -->
+        <link href="{{ asset('library/jqueryConfirm/css/jquery-confirm.css') }}" media="print,screen" rel="stylesheet"/>
+        <!-- CSS -->
+        <link href="{{ asset('css/base.css') }}" media="print,screen" rel="stylesheet"/>
+    {% endblock %}
+    <!--   Block JS -->
+    {% block javascripts %}
 
-        {% endblock %}
-    </head>
-    <body>
+    {% endblock %}
+</head>
+<body>
 
-        {{ include('nav.html.twig') }}
+{{ include('nav.html.twig') }}
 
-        {% block body %}{% endblock %}
+{% block body %}{% endblock %}
 
-        {{ include('footer.html.twig') }}
+{{ include('footer.html.twig') }}
 
-        <!--   Block JS End -->
-        {% block javascripts2 %}
-            <!-- BOOTSTRAP JS -->
-            <script type="text/javascript" src="{{ asset('library/bootstrap3/js/bootstrap.min.js') }}"></script>
-            <!--    Jquery -->
-            <script type="text/javascript" src="{{ asset('library/jquery/jquery.min.js') }}"></script>
-            <!--    Jquery Confirm JS -->
-            <script type="text/javascript" src="{{ asset('library/jqueryConfirm/js/jquery-confirm.js') }}"></script>
-            <!--JS -->
-            <script type="text/javascript" src="{{ asset('js/hollux.js') }}"></script>
-        {% endblock %}
-    </body>
+<!--   Block JS End -->
+{% block javascripts2 %}
+    <!-- BOOTSTRAP JS -->
+    <script type="text/javascript" src="{{ asset('library/bootstrap3/js/bootstrap.min.js') }}"></script>
+    <!--    Jquery -->
+    <script type="text/javascript" src="{{ asset('library/jquery/jquery.min.js') }}"></script>
+    <!--    Jquery Confirm JS -->
+    <script type="text/javascript" src="{{ asset('library/jqueryConfirm/js/jquery-confirm.js') }}"></script>
+    <!-- Font Awesome -->
+    {#solid.js ??#}
+    <script type="text/javascript" src="{{ asset('library/fonta/svg-with-js/js/wesome/fontawesome.min.js') }}"></script>
+    {# CDN fontAwesome #}
+    {#<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js"
+            integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l"
+            crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js"
+            integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c"
+            crossorigin="anonymous"></script>#}
+    <!--JS -->
+    <script type="text/javascript" src="{{ asset('js/hollux.js') }}"></script>
+{% endblock %}
+</body>
 </html>
