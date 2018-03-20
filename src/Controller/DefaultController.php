@@ -18,10 +18,20 @@ class DefaultController extends AbstractController
      */
     public function index()
     {
-        dump($this->call->characters());
-        //dump($this->container->get('marvelPublicKey'));
 
         Return $this->render('Default/index.html.twig');
+    }
+
+    /**
+     * @Route("/getCharacters/{limit}/{offset}", name="getCharacters")
+     * condition: "request.isXmlHttpRequest()"
+     */
+    public function getCharacters($limit = 20, $offset = 0)
+    {
+        $options = ['limit' => $limit, 'offset' => $offset];
+        $tab = $this->call->characters($options);
+
+        Return $this->render('Default/getCharacters.html.twig', ["tab"=>$tab]);
     }
 
 }

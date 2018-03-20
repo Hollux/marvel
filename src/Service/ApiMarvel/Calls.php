@@ -6,25 +6,52 @@ namespace App\Service\ApiMarvel;
 class Calls
 {
     const  Base_URI = 'https://gateway.marvel.com/v1/public/';
+    const ValidParam = ["name", "nameStartsWith", "modifiedSince", "comics", "series", "events", "stories", "orderBy", "limit", "offfset"];
 
-    public function characters(){
+    public function characters($options = null){
 
+        //gestions param externes
+        $extraParam = $options != null ? $this->explodeOptions($options) : "";
+        //gestion param
+        $param = $this->basicParam();
+        // url
+        $url = self::Base_URI."characters?".$extraParam.$param;
+
+        // response
+        $response = file_get_contents($url);
+        // json decode
+        $decodeResponse = json_decode($response);
+
+        return $decodeResponse;
+
+    }
+
+    public function explodeOptions($options){
+        //initialisation
+        $extraparam = "";
+
+        //boucle des options
+        foreach($options as $key =>$option){
+            //vérif option autorisé
+            if( in_array($key, self::ValidParam));
+                $extraparam .= $key."=".$option;
+        }
+
+        return $extraparam;
+    }
+
+    public function basicParam(){
+        // datetime pour $ts
         $date = new \DateTime();
+
+        //param
         $ts = $date->getTimestamp();
-
         $hash = hash("md5", $ts.$_SERVER['MarvelPrivateKey'].$_SERVER['MarvelPublicKey']);
+        //mise en ordre des param
+        $param = "ts=".$ts."&apikey=".$_SERVER['MarvelPublicKey']."&hash=".$hash;
 
-        dump(self::Base_URI."characters?ts=".$ts."&apikey=".$_SERVER['MarvelPublicKey']."&hash=".$hash);
+        return $param;
 
-        $curl_handle=curl_init();
-        curl_setopt($curl_handle, CURLOPT_URL,self::Base_URI."characters?ts=".$ts."&apikey=".$_SERVER['MarvelPublicKey']."&hash".$hash);
-        curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
-        curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl_handle, CURLOPT_USERAGENT, 'Test API marvel');
-        $response = curl_exec($curl_handle);
-        curl_close($curl_handle);
-
-       return $response;
     }
 
 

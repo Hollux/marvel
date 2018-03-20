@@ -5,5 +5,13 @@
 {% block metaDescription %}{{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Index</h1>
+    <div class="container">
+
+        <h1>Index</h1>
+
+        {% for char in tab.data.results %}
+            <h3>{{ char.name }}</h3>
+        {% endfor %}
+    </div>
+
 {% endblock %}
