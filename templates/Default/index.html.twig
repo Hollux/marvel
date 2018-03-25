@@ -10,13 +10,12 @@
         <h1>Index</h1>
 
         <div id="ajax">
-
             <div class="row">
 
                 {% for char in tab.data.results %}
                 <div class="col-sm-4">
 
-                    <div class="panel panel-default">
+                    <div class="panel panel-default modalPerso">
                         <div class="panel-heading text-center"><b>{{ char.name }}</b></div>
 
                         <div class="panel-body">
@@ -130,5 +129,11 @@
                 });
             }
         })
+
+        //modalPersonnage
+        $('.modalPerso').click(function() {
+            console.log('clic');
+        })
+
     </script>
 {% endblock %}
