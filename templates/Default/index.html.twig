@@ -15,7 +15,7 @@
                 {% for char in tab.data.results %}
                 <div class="col-sm-4">
 
-                    <div class="panel panel-default modalPerso">
+                    <div class="panel panel-default modalPerso" data-id="{{ char.id }}" data-name="{{ char.name }}">
                         <div class="panel-heading text-center"><b>{{ char.name }}</b></div>
 
                         <div class="panel-body">
@@ -132,7 +132,25 @@
 
         //modalPersonnage
         $('.modalPerso').click(function() {
-            console.log('clic');
+
+            //todo disable les boutons quand on clic sur un
+
+            var id = $(this).data('id')
+
+            $.ajax({
+                url: "{{ path('character') }}",
+                data : {'id' : id},
+                type: 'POST',
+                success: function (msg) {
+                    $.confirm({
+                        columnClass: 'col-sm-12',
+                        title: false,
+                        content: msg,
+                        draggable: true,
+                    });
+                }
+            });
+
         })
 
     </script>

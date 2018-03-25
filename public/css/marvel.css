@@ -4,3 +4,8 @@
     border-color: #adadad;
     cursor: pointer;
 }
+
+.charImg {
+    max-widtht : 50mw;
+    max-height: 50mh;
+}

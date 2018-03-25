@@ -62,4 +62,18 @@ class Calls
 
     }
 
+    public function getCharacterById($id){
+        //gestion param
+        $param = $this->basicParam();
+        // url
+        $url = self::Base_URI."characters/".$id."?limit=1".$param;
+
+        // response
+        $response = file_get_contents($url);
+        // json decode
+        $decodeResponse = json_decode($response, true);
+
+        return $decodeResponse;
+    }
+
 }

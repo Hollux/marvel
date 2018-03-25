@@ -1,0 +1,12 @@
+<div class="character">
+
+    <div class="panel panel-error modalPerso">
+        <div class="panel-heading text-center"><b>{{ tab.data.results.0.name }}</b></div>
+
+        <div class="panel-body">
+            <img class='text-center charImg' src="{{  tab.data.results.0.thumbnail.path }}.{{ tab.data.results.0.thumbnail.extension }}" alt="">
+        </div>
+    </div>
+
+   {{ dump(tab.data.results.0) }}
+</div>

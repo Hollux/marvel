@@ -30,6 +30,9 @@ class DefaultController extends AbstractController
         $tab = $this->call->characters($options);
         $pagination = $this->paginationTool->getPagination($tab['data']['total']);
 
+        $options =
+        $precis = $tab = $this->call->characters($options);
+
         Return $this->render('Default/index.html.twig', ["tab"=>$tab, "pagination"=>$pagination]);
     }
 
@@ -74,6 +77,16 @@ class DefaultController extends AbstractController
         $pagination = $this->paginationTool->getPagination($tab['data']['total']);
 
         Return $this->render('Default/characters.html.twig', ["tab"=>$tab, "pagination"=>$pagination]);
+    }
+    /**
+     * @Route("/character", name="character")
+     * condition: "request.isXmlHttpRequest()"
+     */
+    public function character(Request $request){
+        $id = $request->request->get('id');
+        $tab = $this->call->getCharacterById($id);
+
+        Return $this->render('Default/character.html.twig', ["tab"=>$tab]);
     }
 
 }
