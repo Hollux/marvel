@@ -1,12 +1,12 @@
 <div class="character">
+    {% set char = tab.data.results.0 %}
 
-    <div class="panel panel-error modalPerso">
-        <div class="panel-heading text-center"><b>{{ tab.data.results.0.name }}</b></div>
+    <div class="panel panel-danger">
+        <div class="panel-heading text-center"><b>{{ char.name }}</b></div>
 
-        <div class="panel-body">
-            <img class='text-center charImg' src="{{  tab.data.results.0.thumbnail.path }}.{{ tab.data.results.0.thumbnail.extension }}" alt="">
+        <div class="panel-body text-center">
+            <img class='charImg' src="{{  char.thumbnail.path }}.{{ char.thumbnail.extension }}" alt="img">
+            <p>{{ char.description ? char.description : "Aucune description" }}</p>
         </div>
     </div>
-
-   {{ dump(tab.data.results.0) }}
 </div>

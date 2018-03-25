@@ -6,6 +6,10 @@
 }
 
 .charImg {
-    max-widtht : 50mw;
-    max-height: 50mh;
+    max-width:50%!important;
+}
+
+#marvelNav {
+    background-color: #ee1c27;
+    height: 60px;
 }

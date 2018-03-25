@@ -1,13 +1,15 @@
 <div class="row">
 
+
+
     {% for char in tab.data.results %}
     <div class="col-sm-4">
 
-        <div class="panel panel-default">
+        <div class="panel panel-default modalPerso" data-id="{{ char.id }}" data-name="{{ char.name }}">
             <div class="panel-heading text-center"><b>{{ char.name }}</b></div>
 
-            <div class="panel-body">
-                Panel content
+            <div class="panel-body text-center">
+                {{ char.description ? char.description : "Aucune description" }}
             </div>
         </div>
 
@@ -46,67 +48,90 @@
             </li>
         </ul>
     </nav>
-</div>
 
-<script>
-    //pagination
+    <script>
+        //pagination
 
-    //suivant
-    $("#previous").click(function() {
-        //stop bootstrap
-        event.preventDefault();
+        //suivant
+        $("#previous").click(function() {
+            //stop bootstrap
+            event.preventDefault();
 
-        console.log('previous');
-
-        $.ajax({
-            url: "{{ path('previous') }}",
-            type: 'POST',
-            success: function (msg) {
-                $('#ajax').html(msg);
-            }
-        });
-    })
-
-
-    //précédent
-    $("#next").click(function() {
-        //stop bootstrap
-        event.preventDefault();
-
-        console.log('next');
-
-        $.ajax({
-            url: "{{ path('next', { 'max': tab.data.total }) }}",
-            type: 'POST',
-            success: function (msg) {
-                $('#ajax').html(msg);
-            }
-        });
-    })
-
-    //ciblé
-    $('.page-item').click(function() {
-        //stop bootstrap
-        event.preventDefault();
-
-        console.log('page');
-
-        //on retire la page principal
-        if(!$(this).attr('class').includes('active')){
-
-            var target = $(this).find("a").data('info')
+            console.log('previous');
 
             $.ajax({
-                url: "{{ path('page', {'max': tab.data.total }) }}",
-                data : {'x' : target},
+                url: "{{ path('previous') }}",
                 type: 'POST',
                 success: function (msg) {
                     $('#ajax').html(msg);
                 }
             });
-        }
-    })
+        })
 
-    //Hero précis
 
-</script>
+        //précédent
+        $("#next").click(function() {
+            //stop bootstrap
+            event.preventDefault();
+
+            console.log('next');
+
+            $.ajax({
+                url: "{{ path('next', { 'max': tab.data.total }) }}",
+                type: 'POST',
+                success: function (msg) {
+                    $('#ajax').html(msg);
+                }
+            });
+        })
+
+        //ciblé
+        $('.page-item').click(function() {
+            //stop bootstrap
+            event.preventDefault();
+
+            console.log('page');
+
+            //on retire la page principal
+            if(!$(this).attr('class').includes('active')){
+
+                var target = $(this).find("a").data('info')
+
+                $.ajax({
+                    url: "{{ path('page', {'max': tab.data.total }) }}",
+                    data : {'x' : target},
+                    type: 'POST',
+                    success: function (msg) {
+                        $('#ajax').html(msg);
+                    }
+                });
+            }
+        })
+
+        //modalPersonnage
+        $('.modalPerso').click(function() {
+
+            //todo disable les boutons quand on clic sur un
+
+            var id = $(this).data('id')
+
+            $.ajax({
+                url: "{{ path('character') }}",
+                data : {'id' : id},
+                type: 'POST',
+                success: function (msg) {
+                    $.confirm({
+                        columnClass: 'col-sm-12',
+                        title: false,
+                        type: 'red',
+                        content: msg,
+                        draggable: true,
+                    });
+                }
+            });
+        })
+
+    </script>
+
+
+</div>
