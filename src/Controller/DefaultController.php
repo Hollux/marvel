@@ -21,8 +21,6 @@ class DefaultController extends AbstractController
         $this->paginationTool = $paginationTool;
     }
 
-//* requirements={"limit" ,"offset", "fav")
-
     /**
      * @Route("/", name="index")
      */
@@ -36,20 +34,46 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/getCharacters/{limit}/{offset}", name="getCharacters")
+     * @Route("/previous", name="previous")
      * condition: "request.isXmlHttpRequest()"
      */
-    public function getCharacters($limit = 20, $offset = 0)
+    public function previous()
     {
-        $options = ['limit' => $limit, 'offset' => $offset];
+        $this->sessionParam->previous();
+        $options = $this->sessionParam->getSessionParams();
         $tab = $this->call->characters($options);
+        $pagination = $this->paginationTool->getPagination($tab['data']['total']);
 
-        Return $this->render('Default/getCharacters.html.twig', ["tab"=>$tab]);
+        Return $this->render('Default/characters.html.twig', ["tab"=>$tab, "pagination"=>$pagination]);
     }
 
-    public function getCharacter($name){
+    /**
+     * @Route("/next/{max}", name="next")
+     * condition: "request.isXmlHttpRequest()"
+     */
+    public function next($max = null)
+    {
+        $this->sessionParam->next($max);
+        $options = $this->sessionParam->getSessionParams();
+        $tab = $this->call->characters($options);
+        $pagination = $this->paginationTool->getPagination($tab['data']['total']);
 
+        Return $this->render('Default/characters.html.twig', ["tab"=>$tab, "pagination"=>$pagination]);
+    }
 
+    /**
+     * @Route("/page/{max}", name="page")
+     * condition: "request.isXmlHttpRequest()"
+     */
+    public function page($max = null, Request $request)
+    {
+
+        $this->sessionParam->page($request->request->get('x'), $max);
+        $options = $this->sessionParam->getSessionParams();
+        $tab = $this->call->characters($options);
+        $pagination = $this->paginationTool->getPagination($tab['data']['total']);
+
+        Return $this->render('Default/characters.html.twig', ["tab"=>$tab, "pagination"=>$pagination]);
     }
 
 }

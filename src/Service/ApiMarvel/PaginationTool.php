@@ -23,22 +23,22 @@ class PaginationTool
         //Recuperation base
         $offset = $this->session->get('offset');
 
+        //nombre central
         if($offset){
             $paginationBase = $offset/21+1;
-            $pagination[4] = $paginationBase;
+            $pagination['number'][4] = $paginationBase;
         } else {
             $paginationBase = 1;
-            $pagination[4] = 1;
+            $pagination['number'][4] = 1;
         }
 
         //Pagination -
-
         $j = 1;
         for($i = 3; $i > 0; $i--){
             if($paginationBase-$j > 0){
-                $pagination[$i] = $paginationBase-$j;
+                $pagination['number'][$i] = $paginationBase-$j;
             }else{
-                $pagination[$i] = null;
+                $pagination['number'][$i] = null;
             }
             $j++;
         }
@@ -47,12 +47,21 @@ class PaginationTool
         $j = 1;
         for($i = 5; $i < 8; $i++){
             if($paginationBase+$j < $max/21){
-                $pagination[$i] = $paginationBase+$j;
+                $pagination['number'][$i] = $paginationBase+$j;
             }else{
-                $pagination[$i] = null;
+                $pagination['number'][$i] = null;
             }
             $j++;
         }
+
+        //Previous
+        $pagination['previous'] = !$offset || $offset <= 0 ? "hide" : "";
+
+        //Next
+        $pagination['next'] = $offset+21 >= $max ? "hide" : "";
+
+        // rapide reorganisation
+        ksort($pagination['number']);
 
         return $pagination;
     }
