@@ -5,9 +5,10 @@ namespace App\Service\ApiMarvel;
 
 class Calls
 {
-    const  Base_URI = 'https://gateway.marvel.com/v1/public/';
-    const ValidParam = ["name", "nameStartsWith", "modifiedSince", "comics", "series", "events", "stories", "orderBy", "limit", "offfset"];
+    const Base_URI = 'https://gateway.marvel.com/v1/public/';
+    const ValidParam = ["name", "nameStartsWith", "modifiedSince", "comics", "series", "events", "stories", "orderBy", "limit", "offset"];
 
+    // utilise exploadOptions et basic param
     public function characters($options = null){
 
         //gestions param externes
@@ -20,7 +21,7 @@ class Calls
         // response
         $response = file_get_contents($url);
         // json decode
-        $decodeResponse = json_decode($response);
+        $decodeResponse = json_decode($response, true);
 
         return $decodeResponse;
 
@@ -33,8 +34,15 @@ class Calls
         //boucle des options
         foreach($options as $key =>$option){
             //vérif option autorisé
-            if( in_array($key, self::ValidParam));
-                $extraparam .= $key."=".$option;
+            if( in_array($key, self::ValidParam)){
+
+                //pas de & pour le premier .
+                if($option == reset($options)){
+                    $extraparam .= $key."=".$option;
+                } else {
+                    $extraparam .= "&".$key."=".$option;
+                }
+            }
         }
 
         return $extraparam;
@@ -48,11 +56,10 @@ class Calls
         $ts = $date->getTimestamp();
         $hash = hash("md5", $ts.$_SERVER['MarvelPrivateKey'].$_SERVER['MarvelPublicKey']);
         //mise en ordre des param
-        $param = "ts=".$ts."&apikey=".$_SERVER['MarvelPublicKey']."&hash=".$hash;
+        $param = "&ts=".$ts."&apikey=".$_SERVER['MarvelPublicKey']."&hash=".$hash;
 
         return $param;
 
     }
-
 
 }
